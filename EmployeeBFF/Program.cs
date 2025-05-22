@@ -1,4 +1,7 @@
-using System.Net.Http;
+using EmployeeBFF.Middleware;
+using EmployeeApi.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +15,14 @@ builder.Services.AddSwaggerGen();
 // Connect to EmployeeApi project
 builder.Services.AddHttpClient("EmployeeApi", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5284/api/employees");
+    client.BaseAddress = new Uri("http://localhost:5284/");
 });
+
+// Add FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
 
 var app = builder.Build();
 
@@ -23,6 +32,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Global Middleware for endpoints
+app.UseMiddleware<BffExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

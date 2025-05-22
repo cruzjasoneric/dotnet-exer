@@ -17,8 +17,12 @@ namespace EmployeeApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetAll() =>
-            await _context.Employees.ToListAsync();
+        public async Task<ActionResult<IEnumerable<Employee>>> GetAll()
+        {
+            //throw new Exception("test exception");
+            return await _context.Employees.ToListAsync();
+        }
+            
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> Get(int id)

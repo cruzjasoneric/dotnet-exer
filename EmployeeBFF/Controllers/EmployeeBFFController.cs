@@ -1,4 +1,3 @@
-using EmployeeApi.Data;
 using EmployeeApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +18,13 @@ public class EmployeeBFFController : ControllerBase
         var client = _httpClientFactory.CreateClient("EmployeeApi");
         var response = await client.GetAsync("api/employees");
         var content = await response.Content.ReadAsStringAsync();
-        return Content(content, "application/json");
+
+        return new ContentResult
+        {
+            Content = content,
+            StatusCode = (int)response.StatusCode,
+            ContentType = "application/json"
+        };
     }
 
     [HttpPost("getbyid")]
@@ -28,7 +33,13 @@ public class EmployeeBFFController : ControllerBase
         var client = _httpClientFactory.CreateClient("EmployeeApi");
         var response = await client.GetAsync($"api/employees/{id}");
         var content = await response.Content.ReadAsStringAsync();
-        return Content(content, "application/json");
+
+        return new ContentResult
+        {
+            Content = content,
+            StatusCode = (int)response.StatusCode,
+            ContentType = "application/json"
+        };
     }
 
     [HttpPost("create")]
@@ -37,7 +48,13 @@ public class EmployeeBFFController : ControllerBase
         var client = _httpClientFactory.CreateClient("EmployeeApi");
         var response = await client.PostAsJsonAsync("", employee);
         var content = await response.Content.ReadAsStringAsync();
-        return Content(content, "application/json");
+
+        return new ContentResult
+        {
+            Content = content,
+            StatusCode = (int)response.StatusCode,
+            ContentType = "application/json"
+        };
     }
 
     [HttpPost("delete")]
@@ -46,7 +63,13 @@ public class EmployeeBFFController : ControllerBase
         var client = _httpClientFactory.CreateClient("EmployeeApi");
         var response = await client.DeleteAsync($"api/employees/{id}");
         var content = await response.Content.ReadAsStringAsync();
-        return Content(content, "application/json");
+
+        return new ContentResult
+        {
+            Content = content,
+            StatusCode = (int)response.StatusCode,
+            ContentType = "application/json"
+        };
     }
 
     [HttpPost("update")]
@@ -55,6 +78,12 @@ public class EmployeeBFFController : ControllerBase
         var client = _httpClientFactory.CreateClient("EmployeeApi");
         var response = await client.PutAsJsonAsync($"api/employees/{id}", employee);
         var content = await response.Content.ReadAsStringAsync();
-        return Content(content, "application/json");
+
+        return new ContentResult
+        {
+            Content = content,
+            StatusCode = (int)response.StatusCode,
+            ContentType = "application/json"
+        };
     }
 }

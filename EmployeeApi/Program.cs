@@ -1,4 +1,5 @@
 using EmployeeApi.Data;
+using EmployeeApi.Middleware;
 using EmployeeApi.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -23,6 +24,8 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +34,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Global Middleware for endpoints
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
