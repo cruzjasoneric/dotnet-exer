@@ -1,5 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using EmployeeApi.Data;
+using EmployeeApi.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,12 @@ builder.Services.AddSwaggerGen();
 // In memory db
 builder.Services.AddDbContext<EmployeeDbContext>(options =>
     options.UseInMemoryDatabase("EmployeeDb"));
+
+// Add FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
 
 var app = builder.Build();
 
