@@ -9,15 +9,19 @@ namespace EmployeeApi.Validators
         {
             RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("FirstName is required.")
-            .Matches("^[a-zA-Z ]+$").WithMessage("Name must contain only letters.");
+            .Matches("^[A-Za-z]+(?:[ -][A-Za-z]+)*$").WithMessage("Invalid FirstName");
 
             RuleFor(x => x.LastName)
                 .NotEmpty().WithMessage("LastName is required.")
-            .Matches("^[a-zA-Z ]+$").WithMessage("Name must contain only letters.");
+            .Matches("^[A-Za-z]+(?:[ -][A-Za-z]+)*$").WithMessage("Invalid LastName");
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Email is required.")
                 .EmailAddress().WithMessage("Invalid email format.");
+
+            RuleFor(x => x.Phone)
+                .NotEmpty().WithMessage("Phone is required.")
+                .Matches("^\\+?[0-9]{7,15}$").WithMessage("Invalid phone format");
 
             RuleFor(x => x.Department)
                 .NotEmpty().WithMessage("Department is required.");
