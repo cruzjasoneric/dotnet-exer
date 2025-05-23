@@ -1,5 +1,4 @@
 using EmployeeApi.Data;
-using EmployeeApi.Middleware;
 using EmployeeApi.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -22,9 +21,8 @@ builder.Services.AddDbContext<EmployeeDbContext>(options =>
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
-
-
+builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateEmployeeValidator>();
 
 var app = builder.Build();
 
@@ -34,9 +32,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// Global Middleware for endpoints
-app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

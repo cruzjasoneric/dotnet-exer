@@ -1,11 +1,12 @@
 ﻿using EmployeeApi.Models;
+using EmployeeBFF.Models.Requests;
 using FluentValidation;
 
-namespace EmployeeApi.Validators
+namespace EmployeeBFF.Validators
 {
-    public class CreateEmployeeValidator : AbstractValidator<Employee>
+    public class BffCreateEmployeeValidator : AbstractValidator<EmployeeCreateRequest>
     {
-        public CreateEmployeeValidator()
+        public BffCreateEmployeeValidator()
         {
             RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("FirstName is required.")

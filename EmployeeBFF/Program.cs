@@ -1,5 +1,4 @@
-using EmployeeBFF.Middleware;
-using EmployeeApi.Validators;
+using EmployeeBFF.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 
@@ -22,7 +21,7 @@ builder.Services.AddHttpClient("EmployeeApi", client =>
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<BffCreateEmployeeValidator>();
 
 var app = builder.Build();
 
@@ -32,9 +31,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// Global Middleware for endpoints
-app.UseMiddleware<BffExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
