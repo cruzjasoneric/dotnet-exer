@@ -98,6 +98,7 @@ namespace EmployeeApi.Controllers
         {
             try
             {
+                // validation
                 var validationResult = await _updateEmployeeValidator.ValidateAsync(employee);
                 if (!validationResult.IsValid)
                 {

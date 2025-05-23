@@ -22,6 +22,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<BffCreateEmployeeValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<BffUpdateEmployeeValidator>();
 
 var app = builder.Build();
 
